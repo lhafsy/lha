@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投票</title>
+</head>
+<style>
+  p{margin: 0}
+  .article-loading{
+        width: 100%;
+        height:100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .article-loading div{
+        width: 4px;
+        height: 10px;
+        background-color: #2894FF;
+        display: inline-block;
+        margin-left:6px; 
+        animation:load2 0.5s cubic-bezier(0.77, 0.47, 0.64, 0.28) alternate infinite;
+        -webkit-animation:load2 0.5s cubic-bezier(0.77, 0.47, 0.64, 0.28) alternate infinite;
+    }
+    .article-loading div:nth-child(1){
+        animation-delay: -0.5s;
+    }
+    .article-loading div:nth-child(2){
+        animation-delay: -0.4s;
+    }
+    .article-loading div:nth-child(3){
+        animation-delay: -0.3s;
+    }
+    .article-loading div:nth-child(4){
+        animation-delay: -0.2s;
+    }
+    .article-loading div:nth-child(5){
+        animation-delay: -0.1s;
+    }
+    @keyframes load2{
+        from{transform:scaleY(1);}
+        to{transform:scaleY(3);}
+    }
+    @-webkit-keyframes load2{
+        from{transform:scaleY(1);}
+        to{transform:scaleY(3);}
+    }
+  .vote-out-box{
+        /* display: flex; */
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.65);
+        justify-content: center;
+        align-items: center;
+    }
+    .vote-con-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 50%;
+        height: 95%;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 0;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        padding: 5px;
+        z-index: 2000;
+    }
+    .article-box{
+        width: 100%;
+        flex:1;
+        text-align: center;
+        position: relative;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .article-code-box{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .plase-finash-vote-box{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .plase-finash-vote{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .vote-list-box{
+        width: 80%;
+        height: 104px;
+        margin: 10px auto 5px;
+        border: 1px solid #333333;
+        overflow: hidden;
+    }
+    .vote-list-box .vote-list-con{
+        border-top: 1px solid #333333;
+        height: 20px;
+        display: flex;
+    }
+    .vote-list-box .vote-list-first{
+        border-top: none;
+    }
+    .vote-left-menu{
+        width: 45%;
+        line-height: 20px;
+        border-right: 1px solid #333333;
+        padding:0 5px; 
+        color: #333333;
+    }
+    .vote-right-select{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .put-Vote{
+        width: 100px;
+        height: 30px;
+        background: #2894FF;
+        line-height: 30px;
+        color: #ffffff;
+        border-radius: 4px;
+        text-align: center;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+    .get-vote{
+        display: block!important;
+    }
+    /*访问过于频繁时二维码的大小*/
+    .qrcheck_img{
+        width: 300px;!important;
+        height: 300px;!important;
+    }
+    .goto-vote{
+        width: 100px;
+        height: 30px;
+        margin: 100px auto;
+        background: #2894FF;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 4px;
+        color: #ffffff;
+    }
+</style>
+<body>
+    <div class='goto-vote'>去投票</div>
+    <!-- 投票弹框 -->
+    <div class="vote-out-box">
+        <ul class="vote-con-box">
+            <div class="article-box">
+                <div class="article-loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="vote-list-box">
+                <form class="get-vote">
+                    <div class="vote-list-con vote-list-first">
+                        <p class="vote-left-menu">文章标题吸引人</p>
+                        <div class="vote-right-select">
+                            <input type="radio" name="radioOne" value=1>1分
+                            <input type="radio" name="radioOne" value=2>2分
+                            <input type="radio" name="radioOne" value=3>3分
+                            <input type="radio" name="radioOne" value=4>4分
+                            <input type="radio" name="radioOne" value=5>5分
+                        </div>
+                    </div>
+                    <div class="vote-list-con">
+                            <p class="vote-left-menu">文章标题和内容匹配</p>
+                            <div class="vote-right-select">
+                                <input type="radio" name="radioTwo" value=1>1分
+                                <input type="radio" name="radioTwo" value=2>2分
+                                <input type="radio" name="radioTwo" value=3>3分
+                                <input type="radio" name="radioTwo" value=4>4分
+                                <input type="radio" name="radioTwo" value=5>5分
+                            </div>
+                    </div>
+                    <div class="vote-list-con">
+                            <p class="vote-left-menu">看完文章想要转发</p>
+                            <div class="vote-right-select">
+                                <input type="radio" name="radioThree" value=1>1分
+                                <input type="radio" name="radioThree" value=2>2分
+                                <input type="radio" name="radioThree" value=3>3分
+                                <input type="radio" name="radioThree" value=4>4分
+                                <input type="radio" name="radioThree" value=5>5分
+                            </div>
+                    </div>
+                    <div class="vote-list-con">
+                            <p class="vote-left-menu">看完文章想要点赞</p>
+                            <div class="vote-right-select">
+                                <input type="radio" name="radioFour" value=1>1分
+                                <input type="radio" name="radioFour" value=2>2分
+                                <input type="radio" name="radioFour" value=3>3分
+                                <input type="radio" name="radioFour" value=4>4分
+                                <input type="radio" name="radioFour" value=5>5分
+                            </div>
+                    </div>
+                    <div class="vote-list-con">
+                            <p class="vote-left-menu">总的来说，觉得这篇文章好看</p>
+                            <div class="vote-right-select">
+                                <input type="radio" name="radioFive" value=1>1分
+                                <input type="radio" name="radioFive" value=2>2分
+                                <input type="radio" name="radioFive" value=3>3分
+                                <input type="radio" name="radioFive" value=4>4分
+                                <input type="radio" name="radioFive" value=5>5分
+                            </div>
+                    </div>
+                </form>
+            </div>
+            <div class="put-Vote">提交投票</div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="https://cdn.11bee.com/scripts/static/js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript">
+    var voteContentId=[
+        {normName:'文章标题吸引人'},
+        {normName:'文章标题和内容匹配'},
+        {normName:'看完文章想要转发'},
+        {normName:'看完文章想要点赞'},
+        {normName:'总的来说，觉得这篇文章好看'},
+    ]
+
+    //文章加载完成3分钟后需要进行的操作
+    function isUseable(cbk){
+        timer=setTimeout(function () {
+            $('.article-box').html('<div class="plase-finash-vote-box"><p class="plase-finash-vote">请完成投票</p></div>')
+            $('.vote-list-box input').removeAttr("disabled");
+            $('.put-Vote').off()
+            $('.put-Vote').on('click',function(){
+                var selectValue = $(".get-vote").serializeArray();
+                //3分钟后投票选项是否全部完成
+                if(selectValue.length<5){
+                    alert('请完成所有投票选项')
+                }else{
+                    for(var i=0;i<selectValue.length;i++){
+                        voteContentId[i].id=selectValue[i].name
+                        voteContentId[i].score=selectValue[i].value
+                    }
+                    clearTimeout(timer);
+                    $('.vote-out-box').css('display','none'); 
+                    // 提交按钮，提交数据
+                    $.ajax({
+                        type: "post",
+                        url: "/admin/serving/addVoteResult",
+                        data: { voteNorms: customerUserName, voteContentId: voteContentId },
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            console.log(data)
+                            cbk && cbk
+                        }
+                    });
+                }
+            })
+        }, 180);
+    }
+
+    //渲染函数
+    function voteRender(articleUrl,cbk){
+        // isUseable(cbk)
+        $('.vote-list-box input').attr("disabled","disabled");
+        // 未到3分钟时弹窗提示
+        $('.put-Vote').on('click',function(){
+            alert('您有3分钟的时间阅读文章，请先阅读文章')
+        })
+
+        //解决微信公众号文章的跨域问题
+        $.ajaxPrefilter( function (options) {
+            if (options.crossDomain && jQuery.support.cors) {
+                var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+                options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+            }
+        });
+        $.get(          
+            articleUrl,
+            function (response) {
+                var innerHtml = response;
+                var isChecked = new RegExp("访问过于频繁，请用微信扫描二维码进行访问");
+                if(isChecked.test(innerHtml)){
+                    //解决请求被微信拦截时的二维码显示
+                    innerHtml = innerHtml.replace(/document.write/g, "$('.article-code-box').html")
+                    $('.article-box').html('<div class="article-code-box">' + innerHtml + '</div>')
+                }else{
+                    //解决微信公众号文章图片的防盗链问题
+                    innerHtml = innerHtml.replace(/data-src/g, "src")
+                    innerHtml = innerHtml.replace(/(wx_fmt=gif)|(wx_fmt=png)|(wx_fmt=jpg)|(wx_fmt=jpeg)/g, "")
+                    $('.article-box').html('<div>' + innerHtml + '</div>')
+                    $('#js_pc_qr_code').remove()
+                }
+            }
+        );           
+    }
+
+     //文章的URL
+    //  var articleUrl='https://mp.weixin.qq.com/s?__biz=MzU4MTcyMTM2Mw==&mid=2247485252&idx=1&sn=a760748c5b174ee96c92edc779a5528b&chksm=fd420b38ca35822e2e77f7c7d6f11b5013b54606fcbacbe42abf0ec6cd0b93596f0e2b88131a&scene=0&xtrack=1&key=7f1d049d633b1d67ab8c356a0a47bd7d5e3c526a1e4f6219a1a788ac49e4cc710e2fb869c6eea5600601c386667b75385600c7bf33b4944ae03c7480fd9cd3e7ba310080b1f664396993c4364cc9f804&ascene=1&uin=OTM3NDg5NDQx&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=CH%2Fn62cerUJDtvxUNSrMPARiIA4WocXX89L%2FzA9w5wKBw8lMxvZTzO1D00A4keTT'
+     var articleUrl='https://mp.weixin.qq.com/s/BbkIkHNdEvQvMCU4hPqP5g'
+    //点击提交按钮之后的函数，自定义函数
+    function cbk(){
+
+    }
+
+    $('.goto-vote').on('click',function(){
+        $('.vote-out-box').css('display','flex');
+        voteRender(articleUrl,cbk)
+    })
+
+</script>
